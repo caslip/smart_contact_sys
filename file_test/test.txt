@@ -1,0 +1,28 @@
+Supply Agreement
+
+This Supply Agreement (the "Agreement") is entered into on December 12, 2025, between Global Electronics Ltd., a company incorporated under the laws of the Federal Republic of Germany, with its registered office at Industriestraße 45, 80331 Munich, Germany, Commercial Register No. HRB987654321 (hereinafter referred to as the "Supplier"), and Mr. Michael Schmidt, residing at Hauptstraße 12, 10115 Berlin, Germany, ID number DE1234567890 (hereinafter referred to as the "Buyer").
+
+1. Subject Matter  
+The Supplier agrees to supply and install a complete photovoltaic solar panel system with a total output of 50 kWp, including all necessary components, mounting structures, inverters, and cabling (the "System").
+
+2. Contract Price  
+The total contract price amounts to EUR 85,000 (eighty-five thousand euros), inclusive of value-added tax, delivery, and installation.
+
+3. Term and Performance Period  
+The works shall commence on 01 March 2026 and shall be completed no later than 31 December 2026.
+
+4. Breach of Contract and Penalties  
+In the event of delayed delivery or installation exceeding 14 calendar days beyond the agreed completion date, the Supplier shall be liable to pay a contractual penalty of 0.2% of the total contract value for each commenced day of delay, with a maximum limit of 10% of the total contract value.
+
+5. Governing Law  
+This Agreement shall be governed by and construed in accordance with the laws of the Federal Republic of Germany. Any disputes arising out of or in connection with this Agreement shall be submitted to the exclusive jurisdiction of the courts in Munich.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above.
+
+Global Electronics Ltd.  
+______________________________  
+Name:  
+Title: Managing Director  
+
+Mr. Michael Schmidt  
+______________________________
