@@ -1,0 +1,1044 @@
+{
+  "name": "Contract",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ac736975-2dff-4649-a2bb-a09ca7f71c61",
+        "options": {
+          "binaryPropertyName": "data",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-type",
+                "value": "multipart/form-data"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1232,
+        1056
+      ],
+      "id": "e2f0c74a-f3c0-43b8-a073-85c9ced75d98",
+      "name": "Webhook",
+      "webhookId": "ac736975-2dff-4649-a2bb-a09ca7f71c61",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d0ca2fb9-2ebd-4849-b75d-29779921f67a",
+                    "leftValue": "={{ $json.headers['content-type'] }}",
+                    "rightValue": "application/pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.headers['content-type'] }}",
+                    "rightValue": "text/plain",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2c960024-13a2-466d-8fc1-d2a15da19648"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2a4f719e-2311-4cdb-a348-0ed52748be45",
+                    "leftValue": "={{$binary.data.fileExtension}}",
+                    "rightValue": "doc",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d220a763-85b3-45fb-9bba-8ed2702981f1",
+                    "leftValue": "={{$binary.data.fileExtension}}",
+                    "rightValue": "=docx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "72a7e12d-4b22-4abb-9e8b-b4e5037d7882",
+                    "leftValue": "={{ $json.headers['content-type'] }}",
+                    "rightValue": "image/png",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -976,
+        1008
+      ],
+      "id": "1d61eddd-9284-41d4-88f4-055296f62545",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        576
+      ],
+      "id": "0cb0e51c-b4c0-4662-b46e-e6ca50615aaa",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "returnAll": true,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1XY5NHahQFJcOrkaFmidckPn_7g0e7FB-",
+            "mode": "list",
+            "cachedResultName": "Laws",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1XY5NHahQFJcOrkaFmidckPn_7g0e7FB-"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -112,
+        576
+      ],
+      "id": "e2e076ab-2fb0-4f4b-a04b-2419fa8603ab",
+      "name": "Search files and folders",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "rZAeWU3AryDTS32a",
+          "name": "GoogleAuth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        256,
+        576
+      ],
+      "id": "e0ca1e30-dc7e-4fb1-aee2-1ca6d92d227f",
+      "name": "Download file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "rZAeWU3AryDTS32a",
+          "name": "GoogleAuth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "laws_data",
+          "mode": "list",
+          "cachedResultName": "laws_data"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        608,
+        576
+      ],
+      "id": "2e2d5f37-4d32-4d8e-b51b-8ee350cd8c88",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HWtvf2BaqtUZeZH0",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "embeddinggemma:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        608,
+        1456
+      ],
+      "id": "d3ef60b3-0834-403a-ba58-bbd36bee789d",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "70Npz8mMV1eINDrf",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Knowledge flow"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        544
+      ],
+      "id": "bc92aaff-a3a5-4c25-88bc-953c3feeb7ed",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "You can add data cleaning node before embedding step"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        544
+      ],
+      "id": "cf3ab274-6e8b-4a9f-9b49-c5b022d158de",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -736,
+        848
+      ],
+      "id": "7d924b89-5f2b-426c-911a-f79a261ceb7d",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {
+          "encoding": "utf8"
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -736,
+        1216
+      ],
+      "id": "db3a7b98-03fa-4fbf-bb7f-936359a1c97f",
+      "name": "Extract from File1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here are the raw_context of contract{{ $json.output.raw_text }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a professional legal expert specializing in Chinese contract law and risk assessment. Your task is to carefully review the provided contract text, assess legal risks for each key clause, and reference relevant laws and regulations retrieved from the vector database.\n\nRisk level criteria:\n- low: The clause is fully compliant, balanced, and poses no significant legal risk.\n- medium: The clause is generally compliant but contains potential uncertainties or areas for improvement (e.g., ratios slightly high but still within limits).\n- high: The clause may violate mandatory legal provisions, be significantly unfair, risk invalidity, or impose excessive punitive liability.\n\nSTRICT OUTPUT REQUIREMENTS:\n- Your entire response MUST be exactly one valid JSON object and nothing else.\n- Do NOT include any explanations, additional text, Markdown formatting, code blocks, prefixes (e.g., \"Here is the JSON:\"), or any content outside the JSON.\n- The response must be directly parseable by JSON parsers (starting with { and ending with }).\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        336,
+        1024
+      ],
+      "id": "8a512da8-bedd-4208-8f19-7999cd6554af",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve the knowledge form the supabase vector store.",
+        "tableName": {
+          "__rl": true,
+          "value": "laws_data",
+          "mode": "list",
+          "cachedResultName": "laws_data"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        1248
+      ],
+      "id": "66cb0150-d8cb-4e2d-a983-e65361344d70",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "HWtvf2BaqtUZeZH0",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Contract input terminal"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        992
+      ],
+      "id": "8a03444c-21b0-4fbb-bd2c-e6094071d8ff",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "data",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a extract expert to create a json file. \n\n\nIMPORTANT:\n- Output ONLY the JSON object.\n- The JSON must start directly with { \"contract_type\": ..., \"parties\": ..., ... } — NO wrapping object like {\"output\": ...}.\n- Do not include any explanations, text, or markdown outside the JSON.\n\nCarefully read the following contract text and extract key information.  Output ONLY a single valid JSON object that strictly conforms to the schema below. Do not include any explanations, additional text, Markdown formatting, code blocks, prefixes (such as \"Here is the JSON:\"), or any content outside the JSON object itself.\n"
+            }
+          ]
+        }
+      },
+      "id": "818ba550-fbde-4716-82cd-68e7854081f7",
+      "name": "Chat LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        -96,
+        1024
+      ],
+      "typeVersion": 1.4,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        768
+      ],
+      "id": "3f0071f9-9208-43d7-82a9-f136137bac58",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"risk_level\": \"High/Midium/Low\",\n  \"compliance_result\": \"Legal/Illegal\",\n  \"conflict_clauses\": [\n    {\n      \"clause_content\": \"raw_context in contract\",\n      \"conflict_law\": \"the confilicted clause in law or regulation\",\n      \"risk_desc\": \"risk description\",\n      \"suggestion\": \"adjust advise\"\n    }\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        1232
+      ],
+      "id": "38cef7ec-00d6-4882-bf85-87192124d49c",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-5-nano",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        1280
+      ],
+      "id": "035fe341-5f8e-4ace-976e-5a79f133f486",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "vvegreKQAsWGptBz",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "format": true
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        1024
+      ],
+      "id": "438f8eba-3f16-4b47-a87c-dcf5c754345a",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./test_results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        1024
+      ],
+      "id": "6f4b7212-79f7-422c-bbcc-ccd669b25b06",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "deepseek-ocr:latest",
+          "mode": "list",
+          "cachedResultName": "deepseek-ocr:latest"
+        },
+        "text": "Catch all the content in the image and output them.",
+        "simplify": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        1392
+      ],
+      "id": "3363360b-2ae0-4048-8dce-112517db344f",
+      "name": "Analyze image",
+      "credentials": {
+        "ollamaApi": {
+          "id": "70Npz8mMV1eINDrf",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "qwen3:8b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        1200
+      ],
+      "id": "40fed0c0-b8a5-47f6-b7a8-2b757a6ceba7",
+      "name": "Ollama Chat Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "70Npz8mMV1eINDrf",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"sign_parties\": [\n      {\n        \"name\": \"xx company\",\n        \"type\": \"enterprise\",\n        \"credit_code\": \"123456789\"\n      },\n      {\n        \"name\": \"Tom\",\n        \"type\": \"individual\",\n        \"credit_code\": \"1234567891234\"\n      }\n    ],\n  \"subject\": \"xx device purchase\",\n  \"price\": \"50000 euros\",\n  \"duration\": \"01.01.2025-01.01.2026\",\n  \"breach_liability\": \"A penalty of 0.05% per day will be charged for late delivery.\",\n  \"raw_text\":\"original_contract\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        1200
+      ],
+      "id": "891e13fa-2cee-431d-8ded-8fef3b7efa89",
+      "name": "Structured Output Parser2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59ccf709-92ea-4648-84a9-77a27d1e14e7",
+              "name": "data",
+              "value": "{{$json.body}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        1024
+      ],
+      "id": "d07ca35e-55cb-4512-92ff-ea18260db604",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59ccf709-92ea-4648-84a9-77a27d1e14e7",
+              "name": "data",
+              "value": "{{$json.text}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        848
+      ],
+      "id": "957d4e31-c781-4744-aabe-9319e7011cdb",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59ccf709-92ea-4648-84a9-77a27d1e14e7",
+              "name": "data",
+              "value": "{{$json.data}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        1216
+      ],
+      "id": "5fc75ea2-e5fd-468b-89fe-572c53b521af",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59ccf709-92ea-4648-84a9-77a27d1e14e7",
+              "name": "data",
+              "value": "{{$json.content}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        1392
+      ],
+      "id": "bb3c5c18-58ce-4ad9-b392-83aac674bcbb",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output.risk_level }}",
+                    "rightValue": "high",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "16b68594-4385-42ae-8a68-cf2dac57ad9d"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ced12c0b-4a29-41ba-b802-71dbda2c1e28",
+                    "leftValue": "={{ $json.output.risk_level }}",
+                    "rightValue": "low",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        864,
+        1328
+      ],
+      "id": "ff05b5a0-8305-4fa6-9ef7-6b282cd65a05",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "sendTo": "3593chas@gmail.com",
+        "subject": "Contracts with high risk",
+        "message": "Hi, this contract has high legal risk level, please scrutinize it.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1136,
+        1216
+      ],
+      "id": "cbb8081d-2701-4573-b57c-c194d62f22f7",
+      "name": "Send a message",
+      "webhookId": "08157c32-adaf-4232-9059-0651ecdd80ce",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YwkMQ4QPeNUVrfTU",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file1": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Chat LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1282e032-acc2-46a0-b8d4-8d3100adae99",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "27f2850c7efcf60b62129bc28e0b9d5dca7c3506ed323128d809dd5a06df71da"
+  },
+  "id": "7APpB0hlhCkiZINf",
+  "tags": []
+}
