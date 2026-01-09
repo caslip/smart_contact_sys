@@ -85,14 +85,60 @@ Contributions are welcome—please open an issue or a pull request and follow th
 
 ---
 
-## License 🧾
+## n8n Integration 🔗
 
-This project is licensed as specified in the `LICENSE` file at the repository root. Please refer to that file for details.
+This repository includes an n8n workflow that can receive uploaded files via a webhook. The workflow is provided as `Contract.json` at the repository root.
+
+### Import the workflow
+
+1. Open your n8n editor (e.g., http://localhost:5678).
+2. Go to **Workflows → Import** and choose **Import from file**.
+3. Upload `Contract.json` from this repository and open the imported workflow.
+4. Locate the **Webhook** node and verify:
+   - Method: **POST**
+   - Path: **`ac736975-2dff-4649-a2bb-a09ca7f71c61`**
+   - Binary property name: **`data`** (uploaded file will appear at `$binary.data`)
+5. Activate the workflow so the webhook is reachable.
+
+### Configure your app to forward uploads
+
+Set the `WEBHOOK_URL` environment variable in your app to point to the imported webhook. Example:
+
+```env
+WEBHOOK_URL= your n8n webhook url
+update it in app/.env.local
+```
+
+If n8n is running locally and not publicly accessible, use ngrok to expose it:
+
+```bash
+# Start ngrok to expose port 5678 (n8n default)
+ngrok http 5678
+# Then set WEBHOOK_URL to the generated https URL, e.g.:
+# WEBHOOK_URL=https://abcd1234.ngrok.io/webhook/ac736975-2dff-4649-a2bb-a09ca7f71c61
+```
+
+### Quick test
+
+Upload a test file to your app's upload endpoint (example using curl):
+
+```bash
+curl -F "file=@./app/test.txt" https://<your-app-host>/api/upload
+```
+
+The file should be forwarded to n8n and visible in the Webhook node execution (check `$json.headers` and `$binary.data`).
+
+### Troubleshooting 🔧
+
+- Ensure the workflow is **activated** in n8n.
+- Make sure `WEBHOOK_URL` path matches the webhook path shown in the Webhook node.
+- If using ngrok, use the **https** forwarding URL.
+- Use n8n's Execution pane to inspect incoming requests and binary data.
 
 ---
 
-If you’d like, I can:
-- Add a more complete example (for example, a mock webhook service)
-- Add CI, tests, or deployment instructions
+## License 🧾
+
+This project is licensed as specified in the `LICENSE` file at the repository root. Please refer to that file for details.
 
 **Thanks for using the project!**
