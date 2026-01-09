@@ -108,8 +108,7 @@ Set the `WEBHOOK_URL` environment variable in your app to point to the imported 
 WEBHOOK_URL= your n8n webhook url
 update it in app/.env.local
 ```
-
-If n8n is running locally and not publicly accessible, use ngrok to expose it:
+![alt text](image.png)
 
 ```bash
 # Start ngrok to expose port 5678 (n8n default)
